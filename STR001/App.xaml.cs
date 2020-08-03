@@ -13,5 +13,6 @@ namespace STR001
     /// </summary>
     public partial class App : Application
     {
+
     }
 }

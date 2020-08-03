@@ -13,9 +13,21 @@
     
     <Grid>
 
-        <Label Content="{Binding TestBind, Mode=OneWay, NotifyOnSourceUpdated=True}"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="MainWindow Label" />
+
+        <UserControl 
+            Content="{Binding MaintenanceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
 
     </Grid>
     

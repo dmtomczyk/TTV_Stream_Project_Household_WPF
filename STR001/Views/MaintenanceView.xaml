@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="STR001.WPF.Views.MaintenanceView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:STR001.WPF.Views"
+        DataContext="{Binding Path=MaintenanceVM, Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        Height="450" 
+        Width="800">
+        <!--Title="Maintenace Window"--> 
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Subject: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="0"
+                   Grid.Column="0" />
+        <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="0"
+                 Grid.Column="1" />
+
+        <TextBlock Text="Date Due: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="1"
+                   Grid.Column="0" />
+        <TextBox Text="{Binding DateDue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="1"
+                 Grid.Column="1" />
+
+        <TextBlock Text="Date Last Completed: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="2"
+                   Grid.Column="0" />
+        <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="2"
+                 Grid.Column="1" />
+        
+        <Button Content="Save Changes" 
+                Grid.Row="3"
+                Grid.Column="1"
+                Command="{Binding SaveChangesCommand}"  />
+
+    </Grid>
+
+</UserControl>

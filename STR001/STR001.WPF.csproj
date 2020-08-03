@@ -13,8 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Views\" />
+    <ProjectReference Include="..\STR001.Core\STR001.Core.csproj" />
   </ItemGroup>
 
 </Project>
