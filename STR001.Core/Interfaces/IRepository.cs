@@ -9,20 +9,22 @@ namespace STR001.Core.Interfaces
     public interface IRepository<TEntity> where TEntity : class
     {
 
-        public IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+        TEntity Get(Guid id);
+        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
-        public TEntity GetByID(object id);
+        bool Any(Expression<Func<TEntity, bool>> predicate);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
-        public void Insert(TEntity entity);
+        void Add(TEntity addition);
+        void AddRange(IEnumerable<TEntity> additions);
 
-        public void Delete(object id);
+        void Update(TEntity addition);
+        void UpdateRange(IEnumerable<TEntity> additions);
 
-        public void Delete(TEntity entityToDelete);
-
-        public void Update(TEntity entityToUpdate);
+        void Remove(TEntity removal);
+        void RemoveRange(IEnumerable<TEntity> removals);
 
     }
 }

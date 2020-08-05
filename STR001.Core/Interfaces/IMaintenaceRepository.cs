@@ -5,7 +5,7 @@ using STR001.Core.Models;
 
 namespace STR001.Core.Interfaces
 {
-    public interface IMaintenaceRepository : IRepository<MaintenanceDTO>
+    public interface IMaintenanceRepository : IRepository<MaintenanceDTO>
     {
 
     }

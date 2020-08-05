@@ -11,72 +11,78 @@ namespace STR001.Core.Respository
     public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class 
     {
-        internal MaintenanceContext maintenanceContext;
-        internal DbSet<TEntity> dbSet;
+        protected readonly DbContext Context;
 
-        public Repository(MaintenanceContext context)
+        public Repository(DbContext context)
         {
-            maintenanceContext = context;
-            dbSet = context.Set<TEntity>();
+            Context = context;
         }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+        public void Update(TEntity entity)
         {
-            IQueryable<TEntity> query = dbSet;
-
-            if (filter != null)
+            try
             {
-                query = query.Where(filter);
+                Context.Set<TEntity>().Update(entity);
             }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            catch (InvalidOperationException tracking)
             {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
+                Console.WriteLine(tracking);
             }
         }
 
-        public virtual TEntity GetByID(object id)
+        public void UpdateRange(IEnumerable<TEntity> entities)
         {
-            return dbSet.Find(id);
+            Context.Set<TEntity>().UpdateRange(entities);
         }
 
-        public virtual void Insert(TEntity entity)
+        public void Add(TEntity entity)
         {
-            dbSet.Add(entity);
+            Context.Set<TEntity>().Add(entity);
         }
 
-        public virtual void Delete(object id)
+        public void AddRange(IEnumerable<TEntity> entities)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
+            Context.Set<TEntity>().AddRange(entities);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            if (maintenanceContext.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                dbSet.Attach(entityToDelete);
-            }
-            dbSet.Remove(entityToDelete);
+            return Context.Set<TEntity>().Where(predicate);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            dbSet.Attach(entityToUpdate);
-            maintenanceContext.Entry(entityToUpdate).State = EntityState.Modified;
+            return Context.Set<TEntity>().FirstOrDefault(predicate);
+        }
+
+        public TEntity Get(Guid id)
+        {
+            return Context.Set<TEntity>().Find(id);
+        }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return Context.Set<TEntity>().ToList();
+        }
+
+        public void Remove(TEntity entity)
+        {
+            Context.Set<TEntity>().Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Context.Set<TEntity>().SingleOrDefault(predicate);
+        }
+
+        public bool Any(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Context.Set<TEntity>().Any(predicate);
         }
 
     }

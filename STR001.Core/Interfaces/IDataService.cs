@@ -7,7 +7,7 @@ namespace STR001.Core.Interfaces
 {
     public interface IDataService
     {
-        bool Upsert(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToUpsert);
+        void Upsert(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToUpsert);
 
     }
 }

@@ -7,7 +7,7 @@ using STR001.Core.Models;
 
 namespace STR001.Core.Respository
 {
-    public class MaintenanceRepository : Repository<MaintenanceDTO>, IMaintenaceRepository
+    public class MaintenanceRepository : Repository<MaintenanceDTO>, IMaintenanceRepository
     {
 
         private readonly MaintenanceContext _context;
@@ -17,15 +17,5 @@ namespace STR001.Core.Respository
             this._context = context;
         }
         
-        /// <summary>
-        /// For illustration purposed only. Refactor before use.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public MaintenanceDTO GetByIDCustom(long id)
-        {
-            return _context.Maintenance.Single(item => item.Id == id);
-        }
-
     }
 }

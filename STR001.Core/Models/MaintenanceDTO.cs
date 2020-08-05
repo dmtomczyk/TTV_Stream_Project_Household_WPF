@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace STR001.Core.Models
@@ -17,7 +19,7 @@ namespace STR001.Core.Models
         /// <summary>
         /// Uniquely identify items by their Id.
         /// </summary>
-        public long Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The short name / subject of the maintenance item.

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using STR001.Core.Interfaces;
 using STR001.Core.Models;
 using STR001.Core.Respository;
@@ -10,18 +11,18 @@ namespace STR001.Core
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly MaintenanceContext _maintenanceContext;
+        private readonly MaintenanceContext _context;
 
         public UnitOfWork()
         {
-            _maintenanceContext = new MaintenanceContext();
+            _context = new MaintenanceContext();
 
-            Maintenance = new MaintenanceRepository(_maintenanceContext);
+            Maintenance = new MaintenanceRepository(_context);
         }
 
         #region Repositories
 
-        public MaintenanceRepository Maintenance { get; set; }
+        public IMaintenanceRepository Maintenance { get; set; }
 
         #endregion
 
@@ -35,7 +36,7 @@ namespace STR001.Core
             {
                 if (disposing)
                 {
-                    _maintenanceContext.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;
@@ -48,10 +49,20 @@ namespace STR001.Core
         }
 
         #endregion
-        
+
+        public int Complete()
+        {
+            return _context.SaveChanges();
+        }
+
+        public IDbContextTransaction BeginTransaction()
+        {
+            return _context.Database.BeginTransaction();
+        }
+
         public void Save()
         {
-            _maintenanceContext.SaveChanges();
+            _context.SaveChanges();
         }
 
 
