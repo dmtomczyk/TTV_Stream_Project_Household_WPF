@@ -10,55 +10,63 @@
         Width="800">
         <!--Title="Maintenace Window"--> 
 
-    <Grid>
+    <Grid Background="White">
+
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Height" Value="40" />
+            </Style>
+        </Grid.Resources>
 
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Subject: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="0"
-                   Grid.Column="0" />
+                   Grid.Column="1" />
         <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  Grid.Row="0"
-                 Grid.Column="1" />
+                 Grid.Column="2" />
 
         <TextBlock Text="Date Due: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="1"
-                   Grid.Column="0" />
+                   Grid.Column="1" />
         <TextBox Text="{Binding DateDue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  Grid.Row="1"
-                 Grid.Column="1" />
+                 Grid.Column="2" />
 
         <TextBlock Text="Date Last Completed: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="2"
-                   Grid.Column="0" />
-        <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   Grid.Column="1" />
+        <TextBox Text="{Binding DateLastCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  Grid.Row="2"
-                 Grid.Column="1" />
+                 Grid.Column="2" />
         
         <Button Content="Save Changes" 
                 Grid.Row="3"
-                Grid.Column="1"
+                Grid.Column="2"
                 Command="{Binding SaveChangesCommand}"  />
 
     </Grid>

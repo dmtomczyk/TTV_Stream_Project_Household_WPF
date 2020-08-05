@@ -35,7 +35,7 @@ namespace STR001.Core.Services
                         transaction.Commit();
                         transaction.Dispose();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
                         Console.WriteLine("TODO: Log exceptions to DB / file!");

@@ -28,7 +28,7 @@ namespace STR001.Core
             // Getting the path to the DB.
             string connStr = Path.Combine(
                 path1: Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                path2: "bbhq",
+                path2: "stream",
                 path3: "Maintenance.db"
             );
 
@@ -59,7 +59,11 @@ namespace STR001.Core
             {
 
                 // TODO: Come to implement model in Fluent API
-                entity.ToTable("TableName");
+                entity.ToTable("Maintenance");
+
+                entity.Property("Subject").HasColumnType("VARCHAR");
+                entity.Property("DateDue").HasColumnType("DATETIME");
+                entity.Property("DateLastCompleted").HasColumnType("DATETIME");
 
             });
 

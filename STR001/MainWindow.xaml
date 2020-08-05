@@ -10,7 +10,6 @@
         Height="450" 
         Width="800">
     
-    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -30,6 +29,5 @@
             Grid.ColumnSpan="2" />
 
     </Grid>
-    
     
 </Window>
