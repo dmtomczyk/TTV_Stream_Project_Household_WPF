@@ -107,9 +107,6 @@ namespace STR001.Core
         {
             base.Dispose();
 
-            // TODO: Not Needed?
-            // connection/*?*/.Close();
-
             _connection?.Dispose();
         }
 

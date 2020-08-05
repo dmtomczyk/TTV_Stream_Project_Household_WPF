@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -13,7 +14,39 @@ namespace STR001.Core.Services
     /// </summary>
     public class BasicDataService : IDataService
     {
-        
+
+        public MaintenanceDTO GetMaintenance(IUnitOfWork STRUnitOfWork, Guid maintenanceItemId)
+        {
+            using (STRUnitOfWork)
+            {
+                return STRUnitOfWork.Maintenance.GetAll().First();
+            }
+        }
+
+        public bool Delete(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToDelete)
+        {
+            using (STRUnitOfWork)
+            {
+                using (IDbContextTransaction transaction = STRUnitOfWork.BeginTransaction())
+                {
+                    try
+                    {
+                        STRUnitOfWork.Maintenance.Remove(maintenanceToDelete);
+                        STRUnitOfWork.Complete();
+                        transaction.Commit();
+                        transaction.Dispose();
+
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        return false;
+                    }
+                }
+            }
+        }
+
         public void Upsert(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToUpsert)
         {
             using (STRUnitOfWork)

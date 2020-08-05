@@ -32,7 +32,16 @@ namespace STR001.WPF.ViewModels
 
         public IUnitOfWork UnitOfWork
         {
-            get => SimpleIoc.Default.GetInstance<IUnitOfWork>();
+            get
+            {
+                // TODO: Research ObjectDisposedException.
+                if (SimpleIoc.Default.ContainsCreated<IUnitOfWork>())
+                {
+                    SimpleIoc.Default.Unregister<IUnitOfWork>();
+                    SimpleIoc.Default.Register<IUnitOfWork, UnitOfWork>();
+                }
+                return ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            }
         }
 
         public MainViewModel Main

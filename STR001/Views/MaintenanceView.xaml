@@ -22,7 +22,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" />
@@ -63,11 +65,21 @@
                  VerticalContentAlignment="Center"
                  Grid.Row="2"
                  Grid.Column="2" />
-        
-        <Button Content="Save Changes" 
+
+        <Button Content="Get Item" 
                 Grid.Row="3"
                 Grid.Column="2"
+                Command="{Binding GetItemCommand}"  />
+        
+        <Button Content="Save Changes" 
+                Grid.Row="4"
+                Grid.Column="2"
                 Command="{Binding SaveChangesCommand}"  />
+        
+        <Button Content="Delete Item" 
+                Grid.Row="5"
+                Grid.Column="2"
+                Command="{Binding DeleteItemCommand}"  />
 
     </Grid>
 

@@ -7,7 +7,11 @@ namespace STR001.Core.Interfaces
 {
     public interface IDataService
     {
+
+        bool Delete(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToDelete);
+
         void Upsert(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToUpsert);
 
+        MaintenanceDTO GetMaintenance(IUnitOfWork STRUnitOfWork, Guid maintenanceItemId);
     }
 }

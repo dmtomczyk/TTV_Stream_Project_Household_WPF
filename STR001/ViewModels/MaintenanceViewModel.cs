@@ -28,11 +28,26 @@ namespace STR001.WPF.ViewModels
 
         public Guid Id { get; set; }
 
-        public string Subject { get; set; }
+        private string _subject;
+        public string Subject
+        {
+            get => _subject;
+            set => Set(ref _subject, value);
+        }
 
-        public DateTime? DateDue { get; set; }
+        private DateTime? _dateDue;
+        public DateTime? DateDue
+        {
+            get => _dateDue;
+            set => Set(ref _dateDue, value);
+        }
 
-        public DateTime? DateLastCompleted { get; set; }
+        private DateTime? _dateLastCompleted;
+        public DateTime? DateLastCompleted
+        {
+            get => _dateLastCompleted;
+            set => Set(ref _dateLastCompleted, value);
+        }
 
         #region Commands
 
@@ -44,14 +59,26 @@ namespace STR001.WPF.ViewModels
             _service.Upsert(_locator.UnitOfWork, newDTO);
         });
 
+        public ICommand DeleteItemCommand => new RelayCommand(() =>
+        {
+            MaintenanceDTO newDTO = GetMaintenaceItem();
+            _service.Delete(_locator.UnitOfWork, newDTO);
+        });
+        public ICommand GetItemCommand => new RelayCommand(() =>
+        {
+            SetMaintenanceItem();
+        });
+
         #endregion
 
         /// <summary>
         /// This method uses the values of an existing <see cref="MaintenanceDTO"/> and sets the properties
         /// on the ViewModel based on it's values..
         /// </summary>
-        internal void SetMaintenanceItem(MaintenanceDTO itemToSet)
+        internal void SetMaintenanceItem(/*MaintenanceDTO itemToSet*/)
         {
+            MaintenanceDTO itemToSet = _service.GetMaintenance(_locator.UnitOfWork, new Guid());
+
             Id = itemToSet.Id;
             Subject = itemToSet.Subject;
             DateDue = itemToSet.DateDue;
