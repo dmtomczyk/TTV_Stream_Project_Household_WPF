@@ -18,7 +18,12 @@ namespace STR001.Core
 
         #region DbSets
 
-        public DbSet<MaintenanceDTO> Maintenance;
+        /// <summary>
+        /// TODO: Share on stream that the fix for this being null in MaintenanceViewModel
+        /// was literally due to a missing getter/setter :(
+        ///     -- Took 25 seconds to fix after taking a fresh look at this.
+        /// </summary>
+        public DbSet<MaintenanceDTO> Maintenance { get; set; }
 
         #endregion
 
@@ -62,6 +67,7 @@ namespace STR001.Core
                 entity.ToTable("Maintenance");
 
                 entity.Property("Subject").HasColumnType("VARCHAR");
+                entity.Property("MiscInfo").HasColumnType("VARCHAR");
                 entity.Property("DateDue").HasColumnType("DATETIME");
                 entity.Property("DateLastCompleted").HasColumnType("DATETIME");
 

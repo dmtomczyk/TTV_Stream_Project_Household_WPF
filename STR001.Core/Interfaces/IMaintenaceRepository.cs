@@ -7,6 +7,6 @@ namespace STR001.Core.Interfaces
 {
     public interface IMaintenanceRepository : IRepository<MaintenanceDTO>
     {
-
+        MaintenanceDTO GetNoTracking(Guid maintenanceId);
     }
 }

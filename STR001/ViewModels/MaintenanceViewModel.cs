@@ -12,6 +12,7 @@ using STR001.WPF.ViewModels;
 using CommonServiceLocator;
 using STR001.Core.Models;
 using STR001.Core;
+using System.Collections.ObjectModel;
 
 namespace STR001.WPF.ViewModels
 {
@@ -19,11 +20,13 @@ namespace STR001.WPF.ViewModels
     {
         private readonly IDataService _service;
         private readonly ViewModelLocator _locator;
-        
+
         public MaintenanceViewModel(IDataService service)
         {
             _service = service;
             _locator = App.Current.FindResource("Locator") as ViewModelLocator;
+
+            AllMaintenanceItems = _service.GetMaintenances(_locator.UnitOfWork);
         }
 
         public Guid Id { get; set; }
@@ -33,6 +36,13 @@ namespace STR001.WPF.ViewModels
         {
             get => _subject;
             set => Set(ref _subject, value);
+        }
+
+        private string _miscInfo;
+        public string MiscInfo
+        {
+            get => _miscInfo;
+            set => Set(ref _miscInfo, value);
         }
 
         private DateTime? _dateDue;
@@ -49,6 +59,29 @@ namespace STR001.WPF.ViewModels
             set => Set(ref _dateLastCompleted, value);
         }
 
+        private MaintenanceDTO _selectedMaintenanceItem;
+        public MaintenanceDTO SelectedMaintenanceItem
+        {
+            get => _selectedMaintenanceItem;
+            set
+            {
+                if (Set(ref _selectedMaintenanceItem, value))
+                {
+                    if (value != null)
+                    {
+                        SetMaintenanceItem(value);
+                    }
+                }
+            }
+        }
+
+        private ObservableCollection<MaintenanceDTO> _allMaintenanceItems;
+        public ObservableCollection<MaintenanceDTO> AllMaintenanceItems
+        {
+            get => _allMaintenanceItems;
+            set => Set(ref _allMaintenanceItems, value);
+        }
+
         #region Commands
 
         public ICommand SaveChangesCommand => new RelayCommand(() =>
@@ -57,6 +90,8 @@ namespace STR001.WPF.ViewModels
             // with the values of the current ViewModel.
             MaintenanceDTO newDTO = GetMaintenaceItem();
             _service.Upsert(_locator.UnitOfWork, newDTO);
+
+            UpdateExistingItems();
         });
 
         public ICommand DeleteItemCommand => new RelayCommand(() =>
@@ -64,25 +99,32 @@ namespace STR001.WPF.ViewModels
             MaintenanceDTO newDTO = GetMaintenaceItem();
             _service.Delete(_locator.UnitOfWork, newDTO);
         });
+
         public ICommand GetItemCommand => new RelayCommand(() =>
         {
-            SetMaintenanceItem();
+            //SetMaintenanceItem();
         });
 
         #endregion
+
+        private void UpdateExistingItems()
+        {
+            AllMaintenanceItems = _service.GetMaintenances(_locator.UnitOfWork);
+        }
 
         /// <summary>
         /// This method uses the values of an existing <see cref="MaintenanceDTO"/> and sets the properties
         /// on the ViewModel based on it's values..
         /// </summary>
-        internal void SetMaintenanceItem(/*MaintenanceDTO itemToSet*/)
+        internal void SetMaintenanceItem(MaintenanceDTO itemToSet)
         {
-            MaintenanceDTO itemToSet = _service.GetMaintenance(_locator.UnitOfWork, new Guid());
+            //MaintenanceDTO itemToSet = _service.GetMaintenance(_locator.UnitOfWork, new Guid());
 
             Id = itemToSet.Id;
             Subject = itemToSet.Subject;
             DateDue = itemToSet.DateDue;
             DateLastCompleted = itemToSet.DateLastCompleted;
+            MiscInfo = itemToSet.MiscInfo;
         }
         
         /// <summary>
@@ -97,7 +139,8 @@ namespace STR001.WPF.ViewModels
                 Id = Id,
                 DateDue = DateDue,
                 DateLastCompleted = DateLastCompleted,
-                Subject = Subject
+                Subject = Subject,
+                MiscInfo = MiscInfo
             };
         }
 

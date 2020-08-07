@@ -20,65 +20,112 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition MinHeight="150" Height="Auto" />
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            
+            <!-- C0 [Filler] -->
             <ColumnDefinition Width="30" />
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="7*"/>
+            
+            <!-- C1 [ListBox] -->
+            <ColumnDefinition MinWidth="150" Width="Auto"/>
+            
+            <!-- C2 [Label Column] -->
+            <ColumnDefinition MinWidth="100" Width="Auto"/>
+            
+            <!-- C3<>C5 [Button / Content Column(s)] -->
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+            
+            <!-- C7 [Filler Column]-->
             <ColumnDefinition Width="30" />
+            
         </Grid.ColumnDefinitions>
+
+        <ListBox Grid.Row="1"
+                 Grid.RowSpan="3"
+                 Grid.Column="1"
+                 DisplayMemberPath="Subject"
+                 SelectedItem="{Binding SelectedMaintenanceItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 ItemsSource="{Binding AllMaintenanceItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Text="Subject: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="0"
-                   Grid.Column="1" />
+                   Grid.Column="2" />
         <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
+                 Grid.ColumnSpan="3"
                  Grid.Row="0"
-                 Grid.Column="2" />
+                 Grid.Column="3" />
 
         <TextBlock Text="Date Due: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="1"
-                   Grid.Column="1" />
+                   Grid.Column="2" />
         <TextBox Text="{Binding DateDue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
+                 Grid.ColumnSpan="3"
                  Grid.Row="1"
-                 Grid.Column="2" />
+                 Grid.Column="3" />
 
         <TextBlock Text="Date Last Completed: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="2"
-                   Grid.Column="1" />
+                   Grid.Column="2" />
         <TextBox Text="{Binding DateLastCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
+                 Grid.ColumnSpan="3"
                  VerticalContentAlignment="Center"
                  Grid.Row="2"
-                 Grid.Column="2" />
+                 Grid.Column="3" />
+
+        <TextBlock Text="Misc Info: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="3"
+                   Grid.Column="2" />
+        <TextBox Text="{Binding MiscInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Height="150"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 MinLines="4"
+                 AcceptsReturn="True"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="3"
+                 Grid.Column="3" />
 
         <Button Content="Get Item" 
-                Grid.Row="3"
-                Grid.Column="2"
+                Grid.Row="4"
+                Grid.Column="3"
+                Margin="10"
+                Foreground="Black"
                 Command="{Binding GetItemCommand}"  />
         
         <Button Content="Save Changes" 
                 Grid.Row="4"
-                Grid.Column="2"
+                Grid.Column="4"
+                Margin="10"
+                Foreground="Black"
+                Background="LightGreen"
                 Command="{Binding SaveChangesCommand}"  />
         
         <Button Content="Delete Item" 
-                Grid.Row="5"
-                Grid.Column="2"
+                Grid.Row="4"
+                Grid.Column="5"
+                Margin="10"
+                Foreground="Black"
+                Background="Red"
                 Command="{Binding DeleteItemCommand}"  />
 
     </Grid>

@@ -27,6 +27,11 @@ namespace STR001.Core.Models
         public string Subject { get; set; }
 
         /// <summary>
+        /// Contains all misc. info.
+        /// </summary>
+        public string MiscInfo { get; set; }
+
+        /// <summary>
         /// The date the maintenance is required to be done.
         /// </summary>
         public DateTime? DateDue { get; set; }

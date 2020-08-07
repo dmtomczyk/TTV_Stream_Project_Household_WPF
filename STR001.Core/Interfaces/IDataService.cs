@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using STR001.Core.Models;
 
@@ -13,5 +14,8 @@ namespace STR001.Core.Interfaces
         void Upsert(IUnitOfWork STRUnitOfWork, MaintenanceDTO maintenanceToUpsert);
 
         MaintenanceDTO GetMaintenance(IUnitOfWork STRUnitOfWork, Guid maintenanceItemId);
+
+        ObservableCollection<MaintenanceDTO> GetMaintenances(IUnitOfWork STRUnitOfWork);
+
     }
 }

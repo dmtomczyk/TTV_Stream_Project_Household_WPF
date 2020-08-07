@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,11 +16,19 @@ namespace STR001.Core.Services
     public class BasicDataService : IDataService
     {
 
+        public ObservableCollection<MaintenanceDTO> GetMaintenances(IUnitOfWork STRUnitOfWork)
+        {
+            using (STRUnitOfWork)
+            {
+                return new ObservableCollection<MaintenanceDTO>(STRUnitOfWork.Maintenance.GetAll());
+            }
+        }
+
         public MaintenanceDTO GetMaintenance(IUnitOfWork STRUnitOfWork, Guid maintenanceItemId)
         {
             using (STRUnitOfWork)
             {
-                return STRUnitOfWork.Maintenance.GetAll().First();
+                return STRUnitOfWork.Maintenance.Get(maintenanceItemId);
             }
         }
 
@@ -40,7 +49,9 @@ namespace STR001.Core.Services
                     }
                     catch (Exception ex)
                     {
-
+                        // TODO: Log to file.
+                        transaction.Rollback();
+                        Console.WriteLine("TODO: Delete() exception thrown.");
                         return false;
                     }
                 }
@@ -55,7 +66,9 @@ namespace STR001.Core.Services
                 {
                     try
                     {
-                        if (STRUnitOfWork.Maintenance.Get(maintenanceToUpsert.Id) is MaintenanceDTO foundMaintenaceItem)
+                        // TODO: Share on stream the alternatives.
+                        //if (STRUnitOfWork.Maintenance.GetAsNoTracking(maintenanceToUpsert.Id) is MaintenanceDTO foundMaintenance)
+                        if (STRUnitOfWork.Maintenance.Any(items => items.Id == maintenanceToUpsert.Id))
                         {
                             STRUnitOfWork.Maintenance.Update(maintenanceToUpsert);
                         }
@@ -64,14 +77,14 @@ namespace STR001.Core.Services
                             STRUnitOfWork.Maintenance.Add(maintenanceToUpsert);
                         }
 
-                        STRUnitOfWork.Complete();
+                        int numRowsUpdated = STRUnitOfWork.Complete();
                         transaction.Commit();
                         transaction.Dispose();
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        Console.WriteLine("TODO: Log exceptions to DB / file!");
+                        Console.WriteLine("TODO: Upsert() exception thrown.");
                     }
                 }
             }
