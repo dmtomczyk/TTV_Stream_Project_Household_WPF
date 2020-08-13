@@ -16,6 +16,7 @@ using Syncfusion.Windows.Tools.Controls;
 
 namespace STR001
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -27,4 +28,5 @@ namespace STR001
         }
 
     }
+
 }

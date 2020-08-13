@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Syncfusion.Windows.Shared;
 
 namespace STR001.WPF.Views
 {
@@ -21,8 +22,18 @@ namespace STR001.WPF.Views
         {
             InitializeComponent();
         }
-        
 
+        private void DateTimeEdit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DateTimeEdit dte)
+            {
+                if (dte.IsDropDownOpen is false)
+                {
+                    dte.IsDropDownOpen = true;
+                    //dte.OpenPopup();
+                }
+            }
+        }
 
     }
 }

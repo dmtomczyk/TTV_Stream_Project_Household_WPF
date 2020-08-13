@@ -13,6 +13,8 @@ using CommonServiceLocator;
 using STR001.Core.Models;
 using STR001.Core;
 using System.Collections.ObjectModel;
+using static STR001.Core.Constants;
+using System.Linq;
 
 namespace STR001.WPF.ViewModels
 {
@@ -26,37 +28,80 @@ namespace STR001.WPF.ViewModels
             _service = service;
             _locator = App.Current.FindResource("Locator") as ViewModelLocator;
 
+            AllPossibleRecurrancePeriods = (IEnumerable<Recurrance>)Enum.GetValues(typeof(Recurrance));
+
             AllMaintenanceItems = _service.GetMaintenances(_locator.UnitOfWork);
         }
 
+        //AllPossibleRecurrancePeriods = new Collection<string>();
+        //foreach (Recurrance item in (IEnumerable<Recurrance>) Enum.GetValues(typeof(Recurrance)).AsQueryable().GetEnumerator())
+        //{
+        //    AllPossibleRecurrancePeriods.Add(item.ToString());
+        //}
+
         public Guid Id { get; set; }
 
-        private string _subject;
-        public string Subject
+        private IEnumerable<Recurrance> _allPossibleRecurrancePeriods;
+        public IEnumerable<Recurrance> AllPossibleRecurrancePeriods
         {
-            get => _subject;
-            set => Set(ref _subject, value);
+            get => _allPossibleRecurrancePeriods;
+            set => Set(ref _allPossibleRecurrancePeriods, value);
         }
 
-        private string _miscInfo;
-        public string MiscInfo
+        private string _taskName;
+        public string TaskName
         {
-            get => _miscInfo;
-            set => Set(ref _miscInfo, value);
+            get => _taskName;
+            set => Set(ref _taskName, value);
         }
 
-        private DateTime? _dateDue;
-        public DateTime? DateDue
+        private string _taskDescription;
+        public string TaskDescription
         {
-            get => _dateDue;
-            set => Set(ref _dateDue, value);
+            get => _taskDescription;
+            set => Set(ref _taskDescription, value);
         }
 
-        private DateTime? _dateLastCompleted;
-        public DateTime? DateLastCompleted
+        private Recurrance _period;
+        public Recurrance Period
         {
-            get => _dateLastCompleted;
-            set => Set(ref _dateLastCompleted, value);
+            get => _period;
+            set => Set(ref _period, value);
+        }
+
+        private DateTime? _startDate;
+        public DateTime? StartDate
+        {
+            get => _startDate;
+            set => Set(ref _startDate, value);
+        }
+
+        private DateTime? _endDate;
+        public DateTime? EndDate
+        {
+            get => _endDate;
+            set => Set(ref _endDate, value);
+        }
+        
+        private DateTime? _lastCompletedDate;
+        public DateTime? LastCompletedDate
+        {
+            get => _lastCompletedDate;
+            set => Set(ref _lastCompletedDate, value);
+        }
+
+        private DateTime _dateCreated;
+        public DateTime DateCreated
+        {
+            get => _dateCreated;
+            set => Set(ref _dateCreated, value);
+        }
+
+        private DateTime _dateModified;
+        public DateTime DateModified
+        {
+            get => _dateModified;
+            set => Set(ref _dateModified, value);
         }
 
         private MaintenanceDTO _selectedMaintenanceItem;
@@ -121,10 +166,18 @@ namespace STR001.WPF.ViewModels
             //MaintenanceDTO itemToSet = _service.GetMaintenance(_locator.UnitOfWork, new Guid());
 
             Id = itemToSet.Id;
-            Subject = itemToSet.Subject;
-            DateDue = itemToSet.DateDue;
-            DateLastCompleted = itemToSet.DateLastCompleted;
-            MiscInfo = itemToSet.MiscInfo;
+
+            TaskName = itemToSet.TaskName;
+            TaskDescription = itemToSet.TaskDescription;
+
+            Period = itemToSet.Period;
+            
+            StartDate = itemToSet.StartDate;
+            EndDate = itemToSet.EndDate;
+            LastCompletedDate = itemToSet.LastCompletedDate;
+
+            DateCreated = itemToSet.DateCreated;
+            DateModified = itemToSet.DateModified;
         }
         
         /// <summary>
@@ -137,10 +190,18 @@ namespace STR001.WPF.ViewModels
             return new MaintenanceDTO()
             {
                 Id = Id,
-                DateDue = DateDue,
-                DateLastCompleted = DateLastCompleted,
-                Subject = Subject,
-                MiscInfo = MiscInfo
+
+                TaskName = TaskName,
+                TaskDescription = TaskDescription,
+
+                Period = Period,
+
+                StartDate = StartDate,
+                EndDate = EndDate,
+                LastCompletedDate = LastCompletedDate,
+
+                DateCreated = DateCreated,
+                DateModified = DateModified,
             };
         }
 

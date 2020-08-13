@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STR001.Core.Models;
 using STR001.Core.Respository;
+using static STR001.Core.Constants;
 
 namespace STR001.Core
 {
@@ -66,10 +67,22 @@ namespace STR001.Core
                 // TODO: Come to implement model in Fluent API
                 entity.ToTable("Maintenance");
 
-                entity.Property("Subject").HasColumnType("VARCHAR");
-                entity.Property("MiscInfo").HasColumnType("VARCHAR");
-                entity.Property("DateDue").HasColumnType("DATETIME");
-                entity.Property("DateLastCompleted").HasColumnType("DATETIME");
+                entity.Property("TaskName").HasColumnType("VARCHAR");
+                entity.Property("TaskDescription").HasColumnType("VARCHAR");
+                entity.Property("PeriodString").HasColumnType("VARCHAR");/*.HasConversion(typeof(Recurrance));*/
+                entity.Property("StartDate").HasColumnType("DATETIME");
+                entity.Property("EndDate").HasColumnType("DATETIME");
+                entity.Property("LastCompletedDate").HasColumnType("DATETIME");
+
+                entity.Property(e => e.DateCreated)
+                    .IsRequired()
+                    .HasColumnType("DATETIME")
+                    .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%f', 'now')");
+
+                entity.Property(e => e.DateModified)
+                    .IsRequired()
+                    .HasColumnType("DATETIME")
+                    .HasDefaultValueSql("strftime('%Y-%m-%d %H:%M:%f', 'now')");
 
             });
 

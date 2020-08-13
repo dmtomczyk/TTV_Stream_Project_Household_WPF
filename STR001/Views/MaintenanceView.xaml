@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STR001.WPF.Views"
+        xmlns:sfSharedWPF="http://schemas.syncfusion.com/wpf"
+        xmlns:core="clr-namespace:STR001.Core;assembly=STR001.Core"
         DataContext="{Binding Path=MaintenanceVM, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Height="Auto" 
@@ -15,10 +17,13 @@
         <Grid.Resources>
             <Style TargetType="TextBox">
                 <Setter Property="MinHeight" Value="40" />
+                <Setter Property="Margin" Value="5" />
             </Style>
         </Grid.Resources>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -49,71 +54,112 @@
         <ListBox Grid.Row="1"
                  Grid.RowSpan="3"
                  Grid.Column="1"
-                 DisplayMemberPath="Subject"
+                 DisplayMemberPath="TaskName"
                  SelectedItem="{Binding SelectedMaintenanceItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  ItemsSource="{Binding AllMaintenanceItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TextBlock Text="Subject: "
+        <TextBlock Text="Task Name: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="0"
                    Grid.Column="2" />
-        <TextBox Text="{Binding Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <TextBox Text="{Binding TaskName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  Grid.ColumnSpan="3"
                  Grid.Row="0"
                  Grid.Column="3" />
 
-        <TextBlock Text="Date Due: "
+        <TextBlock Text="Start Date: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="1"
                    Grid.Column="2" />
-        <TextBox Text="{Binding DateDue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 HorizontalContentAlignment="Center"
-                 VerticalContentAlignment="Center"
-                 Grid.ColumnSpan="3"
-                 Grid.Row="1"
-                 Grid.Column="3" />
+        <sfSharedWPF:DateTimeEdit DateTime="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                MinHeight="40"
+                CanEdit="False"
+                Margin="5"
+                Grid.ColumnSpan="3"
+                MouseLeftButtonUp="DateTimeEdit_MouseLeftButtonDown"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Grid.Row="1"
+                Grid.Column="3" />
 
-        <TextBlock Text="Date Last Completed: "
+
+        <TextBlock Text="End Date: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="2"
                    Grid.Column="2" />
-        <TextBox Text="{Binding DateLastCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                 HorizontalContentAlignment="Center"
-                 Grid.ColumnSpan="3"
-                 VerticalContentAlignment="Center"
-                 Grid.Row="2"
-                 Grid.Column="3" />
+        <sfSharedWPF:DateTimeEdit DateTime="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                MinHeight="40"
+                CanEdit="False"
+                Margin="5"
+                Grid.ColumnSpan="3"
+                MouseLeftButtonUp="DateTimeEdit_MouseLeftButtonDown"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Grid.Row="2"
+                Grid.Column="3" />
 
-        <TextBlock Text="Misc Info: "
+        <TextBlock Text="Period / Interval: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.Row="3"
                    Grid.Column="2" />
-        <TextBox Text="{Binding MiscInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <sfSharedWPF:ComboBoxAdv ItemsSource="{Binding AllPossibleRecurrancePeriods}"
+                SelectedItem="{Binding Period, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                MinHeight="40"
+                Margin="5"
+                IsEditable="False"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Grid.ColumnSpan="3"
+                Grid.Row="3"
+                Grid.Column="3" />
+
+        <TextBlock Text="Last Completed Date: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="4"
+                   Grid.Column="2" />
+        <sfSharedWPF:DateTimeEdit DateTime="{Binding LastCompletedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                MinHeight="40"
+                CanEdit="False"
+                MouseLeftButtonUp="DateTimeEdit_MouseLeftButtonDown"
+                Margin="5"
+                HorizontalContentAlignment="Center"
+                Grid.ColumnSpan="3"
+                VerticalContentAlignment="Center"
+                Grid.Row="4"
+                Grid.Column="3" />
+
+        <TextBlock Text="Description: "
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Grid.Row="5"
+                   Grid.Column="2" />
+        <TextBox Text="{Binding TaskDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  Height="150"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Stretch"
                  VerticalAlignment="Stretch"
-                 MinLines="4"
+                 MinLines="5"
                  AcceptsReturn="True"
                  Grid.ColumnSpan="3"
-                 Grid.Row="3"
+                 Grid.Row="5"
                  Grid.Column="3" />
 
         <Button Content="Get Item" 
-                Grid.Row="4"
+                Grid.Row="6"
                 Grid.Column="3"
                 Margin="10"
                 Foreground="Black"
                 Command="{Binding GetItemCommand}"  />
         
         <Button Content="Save Changes" 
-                Grid.Row="4"
+                Grid.Row="6"
                 Grid.Column="4"
                 Margin="10"
                 Foreground="Black"
@@ -121,7 +167,7 @@
                 Command="{Binding SaveChangesCommand}"  />
         
         <Button Content="Delete Item" 
-                Grid.Row="4"
+                Grid.Row="6"
                 Grid.Column="5"
                 Margin="10"
                 Foreground="Black"
