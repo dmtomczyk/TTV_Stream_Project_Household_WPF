@@ -4,12 +4,18 @@
              xmlns:local="clr-namespace:STR001"
              xmlns:viewModels="clr-namespace:STR001.WPF.ViewModels"
              xmlns:views="clr-namespace:STR001.WPF.Views"
+             xmlns:res="clr-namespace:STR001.WPF.Resources"
+             xmlns:converters="clr-namespace:STR001.WPF.Converters"
              StartupUri="MainWindow.xaml">
     
     <Application.Resources>
 
         <ResourceDictionary>
-            
+
+            <converters:BytesToImageSourceConverter x:Key="BytesToImageSourceConverter" />
+
+            <res:UIImagesContainer x:Key="UIImages" />
+
             <viewModels:ViewModelLocator 
                 x:Key="Locator"  />
 

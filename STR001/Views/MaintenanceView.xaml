@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:STR001.WPF.Views"
         DataContext="{Binding Path=MaintenanceVM, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Height="450" 
-        Width="800">
+        Height="Auto" 
+        Width="Auto">
         <!--Title="Maintenace Window"--> 
 
     <Grid Background="White">
 
         <Grid.Resources>
             <Style TargetType="TextBox">
-                <Setter Property="Height" Value="40" />
+                <Setter Property="MinHeight" Value="40" />
             </Style>
         </Grid.Resources>
 

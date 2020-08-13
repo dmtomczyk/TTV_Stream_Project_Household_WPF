@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Syncfusion.Licensing;
 
 namespace STR001
 {
@@ -13,6 +14,17 @@ namespace STR001
     /// </summary>
     public partial class App : Application
     {
+
+        #region License Key Info
+
+        private readonly string _licenseKey = "MzAyNjI4QDMxMzgyZTMyMmUzME5qaXAwK0FMQ1NDMjhmMmlLcXM2eVRCMnBaRk14UmVmWHI3RWhGTjRkckU9";
+
+        #endregion
+
+        public App()
+        {
+            SyncfusionLicenseProvider.RegisterLicense(_licenseKey);
+        }
 
     }
 }

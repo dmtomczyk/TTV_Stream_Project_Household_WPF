@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -7,13 +7,56 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
-    <PackageReference Include="MvvmLight" Version="5.4.1.1" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <None Remove="Images\AppMenuIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\AppMenuIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
+    <PackageReference Include="MvvmLight" Version="5.4.1.1" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+      <PackageReference Include="Syncfusion.Shared.WPF" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Office2016DarkGray.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.SfSkinManager.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Metro.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Blend.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Office365.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.VisualStudio2015.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.VisualStudio2013.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Office2016White.Wpf" Version="18.2.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Office2016Colorful.Wpf" Version="18.2.0.48" />
+</ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\STR001.Core\STR001.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>..\..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\18.2.0.44\precompiledassemblies\.NET Standard 1.2\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\UIImages.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UIImages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UIImages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIImages.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
