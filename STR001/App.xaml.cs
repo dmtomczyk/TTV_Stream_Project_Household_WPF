@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using STR001.Core.Utilities;
 using Syncfusion.Licensing;
 
 namespace STR001
@@ -23,7 +24,11 @@ namespace STR001
 
         public App()
         {
+
             SyncfusionLicenseProvider.RegisterLicense(_licenseKey);
+
+            DBUtils.SetupDB();
+
         }
 
     }

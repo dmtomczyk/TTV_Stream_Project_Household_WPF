@@ -28,6 +28,8 @@ namespace STR001.WPF.ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
 
             SimpleIoc.Default.Register<MaintenanceViewModel>();
+
+            SimpleIoc.Default.Register<UserSettingsViewModel>();
         }
 
         public IUnitOfWork UnitOfWork

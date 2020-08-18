@@ -8,11 +8,15 @@
 
   <ItemGroup>
     <None Remove="Images\AppMenuIcon.png" />
+    <None Remove="UserPrefs.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Images\AppMenuIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UserPrefs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

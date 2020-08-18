@@ -71,7 +71,6 @@ namespace STR001.Core.Models
         public DateTime DateModified { get; set; }
 
         
-
     }
 
     public static class RecurranceExtensions

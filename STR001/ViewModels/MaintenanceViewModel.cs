@@ -69,14 +69,14 @@ namespace STR001.WPF.ViewModels
             set => Set(ref _period, value);
         }
 
-        private DateTime? _startDate;
+        private DateTime? _startDate = null;
         public DateTime? StartDate
         {
             get => _startDate;
             set => Set(ref _startDate, value);
         }
 
-        private DateTime? _endDate;
+        private DateTime? _endDate = null;
         public DateTime? EndDate
         {
             get => _endDate;
@@ -191,7 +191,7 @@ namespace STR001.WPF.ViewModels
             {
                 Id = Id,
 
-                TaskName = TaskName,
+                TaskName = TaskName /*?? "Un-named"*/,
                 TaskDescription = TaskDescription,
 
                 Period = Period,

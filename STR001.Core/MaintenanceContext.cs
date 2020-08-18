@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STR001.Core.Models;
 using STR001.Core.Respository;
+using STR001.Core.Utilities;
 using static STR001.Core.Constants;
 
 namespace STR001.Core
@@ -31,17 +32,14 @@ namespace STR001.Core
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            // Getting the path to the DB.
-            string connStr = Path.Combine(
+            // *Should* resolve to something like this >  C:/ProgramData/stream/Maintenance.db
+            string dbPath = Path.Combine(
                 path1: Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
                 path2: "stream",
                 path3: "Maintenance.db"
             );
 
-            // TODO: Securiteeeee
-            string passStr = "bbhqMikeStream";
-
-            _connection = CreateDBConnection(connStr, passStr);
+            _connection = DBUtils.CreateDBConnection(dbPath, "STRPassword1!");
 
 #if DEBUG
             optionsBuilder.EnableSensitiveDataLogging();
@@ -88,38 +86,6 @@ namespace STR001.Core
 
             #endregion
 
-        }
-
-        private SqliteConnection CreateDBConnection(string dbPath, string passStr)
-        {
-            // Create path if it doesn't exist
-            string path = Path.GetDirectoryName(dbPath);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            // Check if db file exists
-            if (!File.Exists(dbPath))
-            {
-                FileStream stream = File.Create(dbPath);
-                stream.Close();
-            }
-
-            SqliteConnection connection = new SqliteConnection($"DataSource={dbPath};");
-            connection.Open();
-            using (SqliteCommand command = connection.CreateCommand())
-            {
-                command.CommandText = "SELECT quote($password);";
-                command.Parameters.AddWithValue("$password", passStr);
-                string escapedPassword = (string)command.ExecuteScalar(); // Protects against SQL injection
-
-                command.Parameters.Clear();
-                command.CommandText = $"PRAGMA key = {escapedPassword};";
-                command.ExecuteNonQuery();
-            }
-
-            return connection;
         }
 
         public override void Dispose()

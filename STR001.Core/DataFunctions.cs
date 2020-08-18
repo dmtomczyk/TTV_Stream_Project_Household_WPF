@@ -34,5 +34,79 @@ namespace STR001.Core
             return new Guid(guidArray);
         }
 
+        /// <summary>
+        /// Converts a Byte Array ({00-00-00-00-00-00-00-00-00-00-00-...-00})
+        /// to a SQLite Hex String ("X'00000000000000000000...00'")
+        /// </summary>
+        /// <param name="bytes">Byte Array to convert</param>
+        /// <returns>SQLite Hex String</returns>
+        public static string BytesToSQLiteHexString(byte[] bytes) => $"X'{BitConverter.ToString(bytes).Replace("-", "")}'";
+
+        /// <summary>
+        /// Converts a Guid ({00000000-0000-0000-0000-000000000000})
+        /// to a SQLite Hex String ("X'00000000000000000000000000000000'")
+        /// </summary>
+        /// <param name="guid">Guid to convert</param>
+        /// <returns>SQLite Hex String</returns>
+        public static string GuidToSQLiteHexString(Guid guid) => BytesToSQLiteHexString(guid.ToByteArray());
+
+        /// <summary>
+        /// Converts a Byte Array ({00-00-00-00-00-00-00-00-00-00-00-...-00})
+        /// to a Guid ({00000000-0000-0000-0000-000000000000})
+        /// </summary>
+        /// <param name="byteArray">Byte Array to convert</param>
+        /// <param name="guid">Guid to be output</param>
+        /// <returns>true, if the conversion is successful; otherwise, false</returns>
+        public static bool BytesToGuid(byte[] byteArray, out Guid guid) => SqliteHexStringToGuid(BytesToSQLiteHexString(byteArray), out guid);
+
+        /// <summary>
+        /// Converts a SQLite Hex String ("X'00000000000000000000000000000000'")
+        /// to a Guid ({00000000-0000-0000-0000-000000000000})
+        /// </summary>
+        /// <param name="hexString">SQLite Hex String to convert</param>
+        /// <param name="guid">Guid to be output</param>
+        /// <returns>true, if the conversion is successful; otherwise, false</returns>
+        public static bool SqliteHexStringToGuid(string hexString, out Guid guid)
+        {
+            string guidString = hexString.Replace("X", "").Replace("'", ""); // Accounting for sqlite hex markers "X'...guid...'"
+            if (guidString.Length == 32)
+            {
+                string[] array1 = new string[]
+                                            {
+                                        guidString.Substring(0, 2),
+                                        guidString.Substring(2, 2),
+                                        guidString.Substring(4, 2),
+                                        guidString.Substring(6, 2)
+                                            };
+                Array.Reverse(array1);
+
+                string[] array2 = new string[]
+                                        {
+                                        guidString.Substring(8, 2),
+                                        guidString.Substring(10, 2)
+                                        };
+                Array.Reverse(array2);
+
+                string[] array3 = new string[]
+                                        {
+                                        guidString.Substring(12, 2),
+                                        guidString.Substring(14, 2)
+                                        };
+                Array.Reverse(array3);
+
+                return Guid.TryParse(string.Join("", array1) + "-" +
+                                        string.Join("", array2) + "-" +
+                                        string.Join("", array3) + "-" +
+                                        guidString.Substring(16, 4) + "-" +
+                                        guidString.Substring(20), out guid);
+            }
+            else
+            {
+                guid = Guid.Empty;
+                return false;
+            }
+        }
+
+
     }
 }

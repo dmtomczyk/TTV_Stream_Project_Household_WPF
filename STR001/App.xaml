@@ -13,16 +13,20 @@
         <ResourceDictionary>
 
             <converters:BytesToImageSourceConverter x:Key="BytesToImageSourceConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
             <res:UIImagesContainer x:Key="UIImages" />
 
-            <viewModels:ViewModelLocator 
-                x:Key="Locator"  />
+            <viewModels:ViewModelLocator x:Key="Locator"  />
 
             <DataTemplate DataType="{x:Type viewModels:MaintenanceViewModel}">
                 <views:MaintenanceView />
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModels:UserSettingsViewModel}">
+                <views:UserSettingsView />
+            </DataTemplate>
+
         </ResourceDictionary>
          
     </Application.Resources>

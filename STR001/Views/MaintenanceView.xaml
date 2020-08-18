@@ -12,7 +12,8 @@
         Width="Auto">
         <!--Title="Maintenace Window"--> 
 
-    <Grid Background="White">
+    <Grid>
+        <!--Background="White"-->
 
         <Grid.Resources>
             <Style TargetType="TextBox">
@@ -54,9 +55,17 @@
         <ListBox Grid.Row="1"
                  Grid.RowSpan="3"
                  Grid.Column="1"
-                 DisplayMemberPath="TaskName"
                  SelectedItem="{Binding SelectedMaintenanceItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 ItemsSource="{Binding AllMaintenanceItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                 ItemsSource="{Binding AllMaintenanceItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                 <!--DisplayMemberPath="TaskName"-->
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding TaskName, Mode=OneWay, TargetNullValue='Un-named'}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
 
         <TextBlock Text="Task Name: "
                    HorizontalAlignment="Center"
@@ -86,7 +95,6 @@
                 Grid.Row="1"
                 Grid.Column="3" />
 
-
         <TextBlock Text="End Date: "
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -97,6 +105,9 @@
                 CanEdit="False"
                 Margin="5"
                 Grid.ColumnSpan="3"
+                                  
+                IsEmptyDateEnabled="True"
+                                  
                 MouseLeftButtonUp="DateTimeEdit_MouseLeftButtonDown"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
