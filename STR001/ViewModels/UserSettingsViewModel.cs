@@ -16,6 +16,7 @@ namespace STR001.WPF.ViewModels
     public class UserSettingsViewModel : ViewModelBase
     {
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IDataService _service;
 
         public UserSettingsViewModel(IDataService service)
@@ -55,7 +56,7 @@ namespace STR001.WPF.ViewModels
             }
             catch (Exception ex)
             {
-
+                Logger.Error(ex, "Failed to write User Settings to UserPrefs.json.");
             }
         });
 

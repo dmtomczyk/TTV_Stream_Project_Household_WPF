@@ -145,9 +145,9 @@ namespace STR001.WPF.ViewModels
             _service.Delete(_locator.UnitOfWork, newDTO);
         });
 
-        public ICommand GetItemCommand => new RelayCommand(() =>
+        public ICommand CreateNewItemCommand => new RelayCommand(() =>
         {
-            //SetMaintenanceItem();
+            SelectedMaintenanceItem = new MaintenanceDTO();
         });
 
         #endregion

@@ -1,25 +1,28 @@
 ﻿<syncfusion:RibbonWindow x:Class="STR001.MainWindow"
-                         x:Name="RibbonWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-        xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-        xmlns:local="clr-namespace:STR001"
-        mc:Ignorable="d"
-        Title="STR001: .NET Improvement" 
-        DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
-        Height="Auto" 
-        Width="800">
-        <!--syncfusionskin:SfSkinManager.VisualStyle="Office365"-->
-        <!--Office2010Icon=""-->
-    
+    x:Name="RibbonWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:syncfusionskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:views="clr-namespace:STR001.WPF.Views"
+    xmlns:local="clr-namespace:STR001"
+    mc:Ignorable="d"
+    Title="STR001: .NET Improvement" 
+    DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
+    MinHeight="400" 
+    MinWidth="900"
+    Height="700"
+    Width="900">
+    <!--syncfusionskin:SfSkinManager.VisualStyle="Office365"-->
+    <!--Office2010Icon=""-->
+
     <Grid>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -27,38 +30,39 @@
         </Grid.ColumnDefinitions>
 
         <syncfusion:Ribbon x:Name="_ribbon" 
-                           VerticalAlignment="Top"
-                           Grid.Row="0"
-                           Grid.ColumnSpan="2">
+            MinHeight="40"
+            VerticalAlignment="Top"
+            Grid.Row="0"
+            Grid.ColumnSpan="2">
 
-            <!--Control is only usable when SfSkinManager.VisualStyle="Default"--> 
+            <!--Control is only usable when SfSkinManager.VisualStyle="Default"-->
             <!--<syncfusion:Ribbon.ApplicationMenu>
 
-                <syncfusion:ApplicationMenu x:Name="_applicationMenu" 
-                    Width="50" 
-                    Height="50" 
-                    syncfusion:Ribbon.KeyTip="F" 
-                    IsPopupOpen="False"
-                    ApplicationButtonImage="{Binding AppMenuIcon, 
-                                                Converter={StaticResource BytesToImageSourceConverter},
-                                                Source={StaticResource UIImages}}">
+            <syncfusion:ApplicationMenu x:Name="_applicationMenu" 
+                Width="50" 
+                Height="50" 
+                syncfusion:Ribbon.KeyTip="F" 
+                IsPopupOpen="False"
+                ApplicationButtonImage="{Binding AppMenuIcon, 
+                                            Converter={StaticResource BytesToImageSourceConverter},
+                                            Source={StaticResource UIImages}}">
 
-                    <syncfusion:ApplicationMenu.MenuItems>
-                        <syncfusion:SimpleMenuButton Label="File" />
-                    </syncfusion:ApplicationMenu.MenuItems>
+                <syncfusion:ApplicationMenu.MenuItems>
+                    <syncfusion:SimpleMenuButton Label="File" />
+                </syncfusion:ApplicationMenu.MenuItems>
 
-                </syncfusion:ApplicationMenu>
+            </syncfusion:ApplicationMenu>
                 
-            </syncfusion:Ribbon.ApplicationMenu>-->
-        
-             <!--"QAT" : Housed in the very top of the ribbon .-->
+        </syncfusion:Ribbon.ApplicationMenu>-->
+
+            <!--"QAT" : Housed in the very top of the ribbon .-->
             <syncfusion:Ribbon.QuickAccessToolBar>
-                
+
                 <syncfusion:QuickAccessToolBar/>
-                
+
             </syncfusion:Ribbon.QuickAccessToolBar>
 
-             <!--"Backstage" : What's displayed when you click on "FILE"--> 
+            <!--"Backstage" : What's displayed when you click on "FILE"-->
             <syncfusion:Ribbon.BackStage>
                 <syncfusion:Backstage>
 
@@ -67,25 +71,25 @@
                     <syncfusion:BackStageSeparator />
 
                     <syncfusion:BackStageCommandButton Header="Button 2" />
-                    
+
                 </syncfusion:Backstage>
             </syncfusion:Ribbon.BackStage>
 
             <syncfusion:RibbonTab Caption="Home"
-                                  IsChecked="True">
+                                IsChecked="True">
 
                 <syncfusion:RibbonBar x:Name="homeRibbonTabRibbonBar1"
-                                      Header="Ribbon Bar 1">
+                                    Header="Ribbon Bar 1">
 
                     <syncfusion:RibbonButton Label="Do things."
-                                             SplitLabelIntoTwoLine="False"
-                                             SizeForm="Large" />
-                                        <!--Content="{Binding ContentofBinding}"-->
+                                            SplitLabelIntoTwoLine="False"
+                                            SizeForm="Large" />
+                    <!--Content="{Binding ContentofBinding}"-->
 
                     <syncfusion:DropDownButton Label="Drop Down"
-                                               SplitLabelIntoTwoLine="False"
-                                               SizeForm="Large"
-                                               >
+                                            SplitLabelIntoTwoLine="False"
+                                            SizeForm="Large"
+                                            >
 
                         <syncfusion:DropDownMenuItem Header="Menu Item 1" />
 
@@ -96,41 +100,40 @@
             </syncfusion:RibbonTab>
             <syncfusion:RibbonTab Caption="Settings" IsChecked="False">
 
-
                 <syncfusion:RibbonBar x:Name="homeRibbonTabRibbonBar2"
-                                      Header="Ribbon Bar 2">
+                                    Header="Ribbon Bar 2">
 
                     <syncfusion:RibbonButton Label="Open User Prefs."
-                                             SplitLabelIntoTwoLine="False"
-                                             SizeForm="Large"
-                                             Command="{Binding OpenUserSettingsCommand}"/>
-                    
-                </syncfusion:RibbonBar>
+                                            SplitLabelIntoTwoLine="False"
+                                            SizeForm="Large"
+                                            Command="{Binding OpenUserSettingsCommand}"/>
 
+                </syncfusion:RibbonBar>
 
             </syncfusion:RibbonTab>
 
-
         </syncfusion:Ribbon>
-        
-        <!--<Label Content="MainWindow Label" />-->
-
-        <!--<Label Content="MainWindow Label" />-->
-
-        <UserControl 
-            Visibility="{Binding IsSettingsViewClosed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
-            Content="{Binding MaintenanceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-            VerticalAlignment="Stretch"
-            Grid.Row="1"
-            Grid.ColumnSpan="2" />
-
-        <UserControl 
-            Visibility="{Binding IsSettingsViewClosed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
-            Content="{Binding UserSettingsViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-            VerticalAlignment="Stretch"
-            Grid.Row="1"
-            Grid.ColumnSpan="2" />
-
-    </Grid>
     
+        <ScrollViewer Grid.Row="1"
+                      Grid.ColumnSpan="2">
+
+            <Grid>
+                
+                <UserControl Content="{Binding MaintenanceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Visibility="{Binding IsSettingsViewClosed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
+                    VerticalAlignment="Stretch"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2" />
+
+                <UserControl Content="{Binding UserSettingsViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    Visibility="{Binding IsSettingsViewClosed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter='invert'}"
+                    VerticalAlignment="Stretch"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2" />
+            </Grid>
+
+        </ScrollViewer>
+            
+    </Grid>
+
 </syncfusion:RibbonWindow>

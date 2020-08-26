@@ -14,6 +14,7 @@ namespace STR001.Core.Utilities
     /// </summary>
     public static class DBUtils
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         #region DB Properties
 
@@ -128,7 +129,7 @@ namespace STR001.Core.Utilities
                 }
                 catch (Exception tableException)
                 {
-                    // Logger.Error(tableException, "DBI104");
+                    Logger.Error(tableException, "DBUtils.104");
                     throw;
                 }
             }
@@ -167,9 +168,9 @@ namespace STR001.Core.Utilities
                 }
                 return false;
             }
-            catch (System.Exception tableException)
+            catch (Exception tableException)
             {
-                // Logger.Error(tableException, "DBI009");
+                Logger.Error(tableException, "DBUtils.009");
                 throw;
             }
 
@@ -225,7 +226,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception guidIdTypeException)
             {
-                // Logger.Error(guidIdTypeException, "DBI110");
+                Logger.Error(guidIdTypeException, "DBUtils.110");
             }
 
             return false;
@@ -255,9 +256,9 @@ namespace STR001.Core.Utilities
                     }
                 }
             }
-            catch (System.Exception columnNameException)
+            catch (Exception columnNameException)
             {
-                // Logger.Error(columnNameException, "DBI010");
+                Logger.Error(columnNameException, "DBUtils.010");
             }
 
             return columnNames;
@@ -341,7 +342,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception renameException)
             {
-                // Logger.Error(renameException, "DBI213");
+                Logger.Error(renameException, "DBUtils.213");
                 throw;
             }
         }
@@ -508,7 +509,7 @@ namespace STR001.Core.Utilities
             catch (System.Exception renameException)
             {
                 transaction?.Rollback();
-                // Logger.Error(renameException, "DBI212");
+                Logger.Error(renameException, "DBUtils.212");
                 throw;
             }
         }
@@ -545,7 +546,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception columnAddException)
             {
-                // Logger.Error(columnAddException, "DBI011");
+                Logger.Error(columnAddException, "DBUtils.011");
                 return false;
             }
         }
@@ -645,7 +646,7 @@ namespace STR001.Core.Utilities
             catch (System.Exception renameException)
             {
                 transaction?.Rollback();
-                // Logger.Error(renameException, "DBI012");
+                Logger.Error(renameException, "DBUtils.012");
                 throw;
             }
         }
@@ -701,7 +702,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception dateModifiedException)
             {
-                // Logger.Error(dateModifiedException, "DBI013");
+                Logger.Error(dateModifiedException, "DBUtils.013");
             }
         }
 
@@ -726,7 +727,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception uniqueIndexException)
             {
-                // Logger.Error(uniqueIndexException, "DBI014");
+                Logger.Error(uniqueIndexException, "DBUtils.014");
             }
         }
 
@@ -778,7 +779,7 @@ namespace STR001.Core.Utilities
             }
             catch (System.Exception insertException)
             {
-                // Logger.Error(insertException, "DBI024");
+                Logger.Error(insertException, "DBUtils.024");
             }
             return ids;
         }

@@ -24,6 +24,7 @@
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
     <PackageReference Include="MvvmLight" Version="5.4.1.1" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
+    <PackageReference Include="NLog" Version="4.7.4" />
       <PackageReference Include="Syncfusion.Shared.WPF" Version="18.2.0.48" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="18.2.0.48" />
     <PackageReference Include="Syncfusion.Themes.Office2016DarkGray.Wpf" Version="18.2.0.48" />
